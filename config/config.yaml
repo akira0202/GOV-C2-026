@@ -1,0 +1,13 @@
+# Runtime parameters — AgentRegistry loads this file separately from config/agent.yaml
+# and passes its contents as Graph(config=...). The standalone entry point
+# (src/api/server.py) loads it the same way, so these values are the DEPLOYED
+# configuration on both paths. The static discovery manifest (config/agent.yaml)
+# must not carry runtime-tunable parameters.
+max_retry: 3
+timeout_seconds: 30
+
+# Domain configuration surface (docs/02_design.md "Config Surface").
+# Per-call input takes precedence; these are the zero-config defaults.
+advisory_only: true            # MANDATORY code-constant hardlock — a config false is rejected at load
+procurement_type: "IT"         # default; per-call input overrides (IT | 物品 | 役務 | 工事)
+law_jurisdiction: "地方自治法"    # default; per-call input overrides (会計法 | 地方自治法)
